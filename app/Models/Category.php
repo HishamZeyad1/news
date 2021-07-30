@@ -14,9 +14,9 @@ class Category extends Model
         'avatar'
     ];
 
-    // public function posts(){
-    //     return $this->hasMany( Post::class );
-    // }
+    public function posts(){
+        return $this->hasMany( Post::class );
+    }
     public function authors(){
         return $this->hasMany( Author::class );
     }

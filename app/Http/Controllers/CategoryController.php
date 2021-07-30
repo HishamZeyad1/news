@@ -136,11 +136,42 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
-        $category = Category::find( $id ) ;
+        //Category::where('id', $id)->delete();
+        $category = Category::where('id', $id)->first();//Category::find( $id ) ;
+        // dd($category->authors==null);
+        if($category->authors!=null){
+            foreach($category->authors as $author){
+                $author->delete();
+            // $category->authors->delete();
+        }
+                }
+        if($category->posts!=null){
+            foreach($category->posts as $post){
 
+                if($category->posts->comments!=null){
+                    foreach($category->posts->comments as $comment){
+                        $comment->delete();
+                    // $category->authors->delete();
+                }         
+                    // $category->posts->delete();
+                }
+                $post->delete();
+            // $category->authors->delete();
+        }         
+            // $category->posts->delete();
+        }
+
+        // if($category->posts!=null){
+        //     foreach($category->posts as $post){
+        //         $post->delete();
+        //     // $category->authors->delete();
+        // }         
+        //     // $category->posts->delete();
+        // }
+
+        // $category->posts->comment->delete;
         $category->delete();
-        $category->authors()->delete();
+
         // $category->decrement('id');
         return redirect()->route('category.index')
         ->with('success','category deleted successflly') ;

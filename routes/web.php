@@ -52,6 +52,11 @@ Route::put('/post/update/{id}', 'App\Http\Controllers\PostController@update' )->
 Route::delete('/post/destroy/{id}', 'App\Http\Controllers\PostController@destroy' )->name('post.destroy');
 
 
+Route::get('/comment', 'App\Http\Controllers\CommentController@index' )->name('comment.index');
+Route::get('/comment/show/{id}', 'App\Http\Controllers\CommentController@show' )->name('comment.show');
+Route::delete('/comment/destroy/{id}', 'App\Http\Controllers\CommentController@destroy' )->name('comment.destroy');
+
+
 
 
 
