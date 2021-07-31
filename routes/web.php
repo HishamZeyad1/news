@@ -58,6 +58,7 @@ Route::delete('/comment/destroy/{id}', 'App\Http\Controllers\CommentController@d
 
 
 
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 
 
@@ -71,3 +72,7 @@ Route::delete('/comment/destroy/{id}', 'App\Http\Controllers\CommentController@d
 // Route::get('category','App\Http\Controllers\CategoryController');
 
 // Route::resource('products','App\Http\Controllers\ProductController');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
