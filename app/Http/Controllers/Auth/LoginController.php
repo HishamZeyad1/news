@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
+// use Auth;
+// use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class LoginController extends Controller
 {
@@ -37,6 +40,19 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    protected function redirectTo(){
+        if(Auth::user()->usertype=='admin'){
+            return 'admin';
+            // return view('admin.dashboard');
+            // return redirect('admin.dashboard');
+
+       }else{
+        // return view('home');
+        // return redirect('/home');
+
+           return 'home';
+       }
     }
 
     public function logout() {

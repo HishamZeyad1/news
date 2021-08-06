@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::group(['middleware'=>['auth','admin']],function(){
+
+    Route::get('admin', function () {
+        return view('admin.dashboard');
+    });
+});
+// Route::get('/register','App\Http\Controllers\RegisterController@create')->name('register');
 
 // Route::get('/category','App\Http\Controllers\CategoryController@index');
 

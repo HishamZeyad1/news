@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Str;
 class RegisterController extends Controller
 {
     /*
@@ -53,6 +54,11 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            //  'usertype'=>['required', 'string'],
+            //  'email_verified_at' => ['required', 'string','max:255'],
+            //  'api_token' => ['required', 'string', 'max:255'],
+            //  'remember_token' => ['required', 'string','max:255'],
+
         ]);
     }
 
@@ -63,11 +69,18 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+    {   return User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'usertype'=>'user',
+        'password' => Hash::make($data['password']),
+        'email_verified_at' => now(),
+        // 'api_token' => bin2hex( openssl_random_pseudo_bytes( 20 ) ),
+        // 'api_token' => bin2hex(random_bytes(30)),        
+        'api_token' => Str::random(30),
+        'remember_token' => Str::random(10),
+    ]);
+    
+    
     }
 }
